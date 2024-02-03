@@ -25,11 +25,11 @@ class Doctors
     private ?string $specialization = null;
 
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointments::class)]
-    private Collection $bookings;
+    private Collection $appointments;
 
     public function __construct()
     {
-        $this->bookings = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,27 +76,27 @@ class Doctors
     /**
      * @return Collection<int, Appointments>
      */
-    public function getBookings(): Collection
+    public function getAppointments(): Collection
     {
-        return $this->bookings;
+        return $this->appointments;
     }
 
-    public function addBooking(Appointments $booking): static
+    public function addAppointment(Appointments $appointment): static
     {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings->add($booking);
-            $booking->setDoctor($this);
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setDoctor($this);
         }
 
         return $this;
     }
 
-    public function removeBooking(Appointments $booking): static
+    public function removeAppointment(Appointments $appointment): static
     {
-        if ($this->bookings->removeElement($booking)) {
+        if ($this->appointments->removeElement($appointment)) {
             // set the owning side to null (unless already changed)
-            if ($booking->getDoctor() === $this) {
-                $booking->setDoctor(null);
+            if ($appointment->getDoctor() === $this) {
+                $appointment->setDoctor(null);
             }
         }
 
