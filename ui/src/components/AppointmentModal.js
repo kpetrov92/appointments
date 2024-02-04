@@ -20,7 +20,8 @@ function AppointmentModal({
   onClose = () => {},
   doctorId,
   dateTime,
-  updateTimeSlots = () => {},
+  onSuccess = () => {},
+  onFailure = () => {},
 }) {
   const {
     register,
@@ -42,13 +43,13 @@ function AppointmentModal({
         "http://localhost/appointments/create",
         fullData,
       );
-      console.log(response.data);
-      updateTimeSlots(dateTime);
-      // Handle response if needed
+
+      onSuccess();
 
       reset(); // Reset the form fields
       onClose(); // Close modal after submission
     } catch (error) {
+      onFailure();
       console.error("Error submitting the form: ", error);
       // Handle error
     }

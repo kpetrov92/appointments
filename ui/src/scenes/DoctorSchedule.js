@@ -17,6 +17,11 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import AppointmentModal from "../components/AppointmentModal";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 function DoctorSchedule() {
   const { doctorId } = useParams();
@@ -52,11 +57,23 @@ function DoctorSchedule() {
     setIsModalOpen(true);
   };
 
-  const updateTimeSlotsAfterBooking = () => {
+  const onSuccess = () => {
     setTimeSlots((prevTimeSlots) =>
       prevTimeSlots.map((slot) =>
         slot.time === slotTime ? { ...slot, status: 1 } : slot,
       ),
+    );
+
+    NotificationManager.success(
+      "We will expect you!",
+      "Successful Appointment",
+    );
+  };
+
+  const onFailure = () => {
+    NotificationManager.error(
+      "Please check your data and try again later!",
+      "Something went wrong",
     );
   };
 
@@ -119,8 +136,10 @@ function DoctorSchedule() {
         onClose={() => setIsModalOpen(false)}
         doctorId={doctorId}
         dateTime={chosenTimeSlot}
-        updateTimeSlots={updateTimeSlotsAfterBooking}
+        onSuccess={onSuccess}
+        onFailure={onFailure}
       />
+      <NotificationContainer />
     </Layout>
   );
 }
