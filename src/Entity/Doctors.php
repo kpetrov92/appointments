@@ -6,22 +6,27 @@ use App\Repository\DoctorsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: DoctorsRepository::class)]
-class Doctors
+class Doctors extends BaseEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("doctor_list")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("doctor_list")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("doctor_list")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("doctor_list")]
     private ?string $specialization = null;
 
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointments::class)]

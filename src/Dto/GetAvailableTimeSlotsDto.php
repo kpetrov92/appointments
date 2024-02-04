@@ -10,7 +10,7 @@ class GetAvailableTimeSlotsDto
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\DateTime]
+        #[Assert\Date]
         public readonly string $dateTime,
 
         #[Assert\GreaterThanOrEqual(1)]

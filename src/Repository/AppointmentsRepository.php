@@ -21,6 +21,18 @@ class AppointmentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Appointments::class);
     }
 
+    public function findByDoctorAndDate(int $doctorId, \DateTime $date): array
+    {
+        // Use the createQueryBuilder to build a custom query
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.doctor = :doctorId')
+            ->andWhere('DATE(a.dateTime) = :date')
+            ->setParameter('doctorId', $doctorId)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Bookings[] Returns an array of Bookings objects
 //     */
