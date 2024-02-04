@@ -23,7 +23,7 @@ class Doctors extends Fixture
         ];
 
         foreach ($doctorData as $data) {
-            $doctor = new \App\Entity\Doctors();
+            $doctor = new \App\Entity\Doctor();
             $doctor->setFirstName($data['firstName']);
             $doctor->setLastName($data['lastName']);
             $doctor->setSpecialization($data['specialization']);

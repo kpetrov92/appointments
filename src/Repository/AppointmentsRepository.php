@@ -2,35 +2,34 @@
 
 namespace App\Repository;
 
-use App\Entity\Appointments;
+use App\Entity\Appointment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Appointments>
+ * @extends ServiceEntityRepository<Appointment>
  *
- * @method Appointments|null find($id, $lockMode = null, $lockVersion = null)
- * @method Appointments|null findOneBy(array $criteria, array $orderBy = null)
- * @method Appointments[]    findAll()
- * @method Appointments[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Appointment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Appointment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Appointment[]    findAll()
+ * @method Appointment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AppointmentsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Appointments::class);
+        parent::__construct($registry, Appointment::class);
     }
 
     public function findByDoctorAndDate(int $doctorId, \DateTime $date): array
     {
-        // Use the createQueryBuilder to build a custom query
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.doctor = :doctorId')
-            ->andWhere('DATE(a.dateTime) = :date')
+        $qb = $this->createQueryBuilder('appointments')
+            ->andWhere('appointments.doctor = :doctorId')
+            ->andWhere('DATE(appointments.dateTime) = :date')
             ->setParameter('doctorId', $doctorId)
-            ->setParameter('date', $date)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('date', $date);
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

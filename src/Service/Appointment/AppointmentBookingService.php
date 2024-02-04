@@ -3,7 +3,7 @@
 namespace App\Service\Appointment;
 
 use App\Dto\CreateAppointmentDto;
-use App\Entity\Appointments;
+use App\Entity\Appointment;
 use App\Repository\DoctorsRepository;
 use App\Service\Doctor\AvailableSlotsService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,7 +70,7 @@ class AppointmentBookingService
     {
         try {
             // Slot is available and free, proceed to book the appointment
-            $appointment = new Appointments();
+            $appointment = new Appointment();
             $appointment->setPatientFirstName($appointmentDto->patientFirstName);
             $appointment->setPatientLastName($appointmentDto->patientLastName);
             $appointment->setEmail($appointmentDto->email);

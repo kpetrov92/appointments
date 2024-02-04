@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: DoctorsRepository::class)]
-class Doctors extends BaseEntity
+#[ORM\Table(name: 'doctors')]
+class Doctor extends BaseEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,7 +30,7 @@ class Doctors extends BaseEntity
     #[Groups("doctor_list")]
     private ?string $specialization = null;
 
-    #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointments::class)]
+    #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointment::class)]
     private Collection $appointments;
 
     public function __construct()
@@ -79,14 +80,14 @@ class Doctors extends BaseEntity
     }
 
     /**
-     * @return Collection<int, Appointments>
+     * @return Collection<int, Appointment>
      */
     public function getAppointments(): Collection
     {
         return $this->appointments;
     }
 
-    public function addAppointment(Appointments $appointment): static
+    public function addAppointment(Appointment $appointment): static
     {
         if (!$this->appointments->contains($appointment)) {
             $this->appointments->add($appointment);
@@ -96,7 +97,7 @@ class Doctors extends BaseEntity
         return $this;
     }
 
-    public function removeAppointment(Appointments $appointment): static
+    public function removeAppointment(Appointment $appointment): static
     {
         if ($this->appointments->removeElement($appointment)) {
             // set the owning side to null (unless already changed)

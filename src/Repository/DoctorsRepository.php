@@ -2,23 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\Doctors;
+use App\Entity\Doctor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Doctors>
+ * @extends ServiceEntityRepository<Doctor>
  *
- * @method Doctors|null find($id, $lockMode = null, $lockVersion = null)
- * @method Doctors|null findOneBy(array $criteria, array $orderBy = null)
- * @method Doctors[]    findAll()
- * @method Doctors[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Doctor|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Doctor|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Doctor[]    findAll()
+ * @method Doctor[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DoctorsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Doctors::class);
+        parent::__construct($registry, Doctor::class);
     }
 
 //    /**

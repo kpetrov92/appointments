@@ -7,7 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AppointmentsRepository::class)]
-class Appointments extends BaseEntity
+#[ORM\Table(name: 'appointments')]
+class Appointment extends BaseEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,7 +32,7 @@ class Appointments extends BaseEntity
 
     #[ORM\ManyToOne(inversedBy: 'appointments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Doctors $doctor = null;
+    private ?Doctor $doctor = null;
 
     public function getId(): ?int
     {
@@ -98,12 +99,12 @@ class Appointments extends BaseEntity
         return $this;
     }
 
-    public function getDoctor(): ?Doctors
+    public function getDoctor(): ?Doctor
     {
         return $this->doctor;
     }
 
-    public function setDoctor(?Doctors $doctor): static
+    public function setDoctor(?Doctor $doctor): static
     {
         $this->doctor = $doctor;
 

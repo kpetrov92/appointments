@@ -23,7 +23,7 @@ class AppointmentsController extends AbstractController
             return $this->json([
                 'status' => 'success',
                 'message' => 'Appointment booked successfully'
-            ]);
+            ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->json([
                 'status' => 'error',

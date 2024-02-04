@@ -30,7 +30,14 @@ class DoctorsController extends AbstractController
     #[Route('/doctors', name: 'list_doctors', methods: ['GET'])]
     public function list(DoctorsRepository $doctorsRepository): JsonResponse
     {
-        $doctors = $doctorsRepository->findAll();
-        return $this->json($doctors, 200, [], ['groups' => 'doctor_list']);
+        try {
+            $doctors = $doctorsRepository->findAll();
+            return $this->json($doctors, 200, [], ['groups' => 'doctor_list']);
+        } catch (\Exception $e) {
+            return $this->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
