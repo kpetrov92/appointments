@@ -30,4 +30,6 @@ DATABASE_URL=mysql://app_user:helloworld@db:3306/app_db?serverVersion=8.0.33
 
 8. Run the data fixtures in `php` container `php bin/console doctrine:fixtures:load`
 
+9. cd `./ui` and run `npm i` then `npm start`
+
 You could change the name, user and password of the database in the `env` file at the root of the project.
