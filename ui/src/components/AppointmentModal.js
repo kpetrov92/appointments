@@ -44,7 +44,7 @@ function AppointmentModal({
         fullData,
       );
 
-      onSuccess();
+      response.status !== 201 ? onFailure() : onSuccess();
 
       reset(); // Reset the form fields
       onClose(); // Close modal after submission
